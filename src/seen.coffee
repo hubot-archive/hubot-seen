@@ -1,15 +1,14 @@
 # Description:
-#   When was someone last seen, and where
+#   A hubot script that tracks when/where users were last seen
 #
 # Commands:
-#   .seen <user>
+#   hubot seen <user> - show when and where user was last seen
 #
-# Examples:
-#   .seen wiredfool
-#    wiredfool was last seen in #joiito on <date>
+# Configuration:
+#   None
 #
 # Author:
-#   wiredfool
+#   wiredfool, patcon@gittip
 
 
 clean = (thing) ->
@@ -34,7 +33,7 @@ ircchan = (msg) ->
     dbg msg.message.user.room
     msg.message.user.room
   catch error
-    false        
+    false
 
 class Seen
   constructor: (@robot) ->
@@ -42,14 +41,14 @@ class Seen
 
     @robot.brain.on 'loaded', @load
     if @robot.brain.data.users.length
-      @load()  
-    
+      @load()
+
   load: =>
     if @robot.brain.data.seen
       @cache = @robot.brain.data.seen
     else
       @robot.brain.data.seen = @cache
-            
+
   add: (user, channel) ->
     dbg "seen.add #{clean user} on #{channel}"
     @cache[clean user] = {c:channel, d:new Date() - 0}
@@ -61,16 +60,16 @@ class Seen
 module.exports = (robot) ->
   seen = new Seen robot
 
+  # Keep track of last msg heard
   robot.hear /.*/, (msg) ->
     unless is_pm msg
       seen.add (ircname msg), (ircchan msg)
 
-  robot.hear /^([-\w-]+\s)?\.seen @?([-\w._]+):?/, (msg) ->
-    dbg "seen check #{clean msg.match[2]}"
-    nick = msg.match[2]
+  robot.respond /seen @?([-\w._]+):?/, (msg) ->
+    dbg "seen check #{clean msg.match[1]}"
+    nick = msg.match[1]
     last = seen.last nick
     if last.d
       msg.send "#{nick} was last seen in #{last.c} at #{new Date(last.d)}"
     else
       msg.send "I haven't seen #{nick} around lately"
-      

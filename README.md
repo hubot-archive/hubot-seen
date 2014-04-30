@@ -19,6 +19,7 @@ Then add **hubot-seen** to your `external-scripts.json`:
 ## Sample Interaction
 
 ```
-user1>> hubot hello
-hubot>> hello!
+user1>> hubot seen wiredfool
+hubot>> wiredfool was last seen in #joiito on <date>
+
 ```
