@@ -5,11 +5,13 @@
 #   hubot seen <user> - show when and where user was last seen
 #
 # Configuration:
-#   None
+#   HUBOT_SEEN_TIMEAGO - If set (to anything), last seen times will be relative
 #
 # Author:
 #   wiredfool, patcon@gittip
 
+config =
+  use_timeago: process.env.HUBOT_SEEN_TIMEAGO
 
 clean = (thing) ->
   (thing || '').toLowerCase().trim()
@@ -51,7 +53,9 @@ class Seen
 
   add: (user, channel) ->
     dbg "seen.add #{clean user} on #{channel}"
-    @cache[clean user] = {c:channel, d:new Date() - 0}
+    @cache[clean user] =
+      chan:channel
+      date: new Date() - 0
 
   last: (user) ->
     @cache[clean user] ? {}
@@ -69,7 +73,14 @@ module.exports = (robot) ->
     dbg "seen check #{clean msg.match[1]}"
     nick = msg.match[1]
     last = seen.last nick
-    if last.d
-      msg.send "#{nick} was last seen in #{last.c} at #{new Date(last.d)}"
+    if last.date
+      date_string = if config.use_timeago?
+        timeago = require 'timeago'
+        return timeago(new Date(last.date))
+      else
+        return "at #{new Date(last.date)}"
+
+      msg.send "#{nick} was last seen in #{last.chan} #{date_string}"
+
     else
       msg.send "I haven't seen #{nick} around lately"
