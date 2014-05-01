@@ -1,7 +1,7 @@
 {
   "name": "hubot-seen",
   "description": "A hubot script that tracks when/where users were last seen",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Patrick Connolly <patrick.c.connolly@gmail.com>",
   "license": "MIT",
   "keywords": [
