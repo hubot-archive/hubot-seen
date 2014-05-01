@@ -17,7 +17,8 @@
     "url": "https://github.com/hubot-scripts/hubot-seen/issues"
   },
   "dependencies": {
-    "coffee-script": "~1.6"
+    "coffee-script": "~1.6",
+    "timeago": "^0.1.0"
   },
   "devDependencies": {
     "mocha": "*",
