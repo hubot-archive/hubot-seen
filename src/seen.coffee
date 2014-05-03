@@ -76,9 +76,9 @@ module.exports = (robot) ->
     if last.date
       date_string = if config.use_timeago?
         timeago = require 'timeago'
-        return timeago(new Date(last.date))
+        timeago(new Date(last.date))
       else
-        return "at #{new Date(last.date)}"
+        "at #{new Date(last.date)}"
 
       msg.send "#{nick} was last seen in #{last.chan} #{date_string}"
 
