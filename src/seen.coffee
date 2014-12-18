@@ -75,7 +75,7 @@ module.exports = (robot) ->
     unless is_pm msg
       seen.add (ircname msg), (ircchan msg)
 
-  robot.respond /seen @?([-\w._]+):? ?(.*)/, (msg) ->
+  robot.respond /seen @?([-\w.\\^|{}`\[\]]+):? ?(.*)/, (msg) ->
     if msg.match[1] == "in" and msg.match[2] == "last 24h"
       users = seen.usersSince(24)
       msg.send "Active in #{msg.match[2]}: #{users.join(', ')}"
