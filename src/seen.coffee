@@ -16,8 +16,6 @@ config =
 
 clean = (thing) ->
   (thing || '').toLowerCase().trim()
-dbg = (thing) ->
-  console.log thing
 
 is_pm = (msg) ->
   try
@@ -33,7 +31,6 @@ ircname = (msg) ->
 
 ircchan = (msg) ->
   try
-    dbg msg.message.user.room
     msg.message.user.room
   catch error
     false
@@ -53,7 +50,7 @@ class Seen
       @robot.brain.data.seen = @cache
 
   add: (user, channel) ->
-    dbg "seen.add #{clean user} on #{channel}"
+    @robot.logger.debug "seen.add #{clean user} on #{channel}"
     @cache[clean user] =
       chan:channel
       date: new Date() - 0
@@ -80,7 +77,7 @@ module.exports = (robot) ->
       users = seen.usersSince(24)
       msg.send "Active in #{msg.match[2]}: #{users.join(', ')}"
     else
-      dbg "seen check #{clean msg.match[1]}"
+      robot.logger.debug "seen check #{clean msg.match[1]}"
       nick = msg.match[1]
       last = seen.last nick
       if last.date
