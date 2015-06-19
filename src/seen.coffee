@@ -70,7 +70,8 @@ module.exports = (robot) ->
   # Keep track of last msg heard
   robot.hear /.*/, (msg) ->
     unless is_pm msg
-      seen.add (ircname msg), (ircchan msg)
+      unless (ircname msg) in ['Shell', 'shell']
+        seen.add (ircname msg), (ircchan msg)
 
   robot.respond /seen @?([-\w.\\^|{}`\[\]]+):? ?(.*)/, (msg) ->
     if msg.match[1] == "in" and msg.match[2] == "last 24h"
