@@ -88,7 +88,7 @@ module.exports = (robot) ->
         else
           "at #{new Date(last.date)}"
 
-        msg.send "#{nick} was last seen in #{last.chan} #{date_string}" + if last.msg then (", saying '#{last.msg}'") else ""
+        msg.send "#{nick} was last seen #{date_string}" + (if last.msg then (", saying '#{last.msg}'") else "") + " in #{last.chan}"
 
       else
         msg.send "I haven't seen #{nick} around lately"
