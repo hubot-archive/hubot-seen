@@ -37,7 +37,7 @@ ircchan = (msg) ->
 
 class Seen
   constructor: (@robot) ->
-    @cache = {}
+    @cache= {}
 
     @robot.brain.on 'loaded', @load
     if @robot.brain.data.users.length
@@ -49,11 +49,12 @@ class Seen
     else
       @robot.brain.data.seen = @cache
 
-  add: (user, channel) ->
+  add: (user, channel, msg) ->
     @robot.logger.debug "seen.add #{clean user} on #{channel}"
     @cache[clean user] =
-      chan:channel
+      chan: channel
       date: new Date() - 0
+      msg: msg
 
   last: (user) ->
     @cache[clean user] ? {}
@@ -70,7 +71,7 @@ module.exports = (robot) ->
   # Keep track of last msg heard
   robot.hear /.*/, (msg) ->
     unless is_pm msg
-      seen.add (ircname msg), (ircchan msg)
+      seen.add (ircname msg), (ircchan msg), msg.message.text
 
   robot.respond /seen @?([-\w.\\^|{}`\[\]]+):? ?(.*)/, (msg) ->
     if msg.match[1] == "in" and msg.match[2] == "last 24h"
@@ -87,7 +88,7 @@ module.exports = (robot) ->
         else
           "at #{new Date(last.date)}"
 
-        msg.send "#{nick} was last seen in #{last.chan} #{date_string}"
+        msg.send "#{nick} was last seen in #{last.chan} #{date_string}" + if last.msg then (", saying '#{last.msg}'") else ""
 
       else
         msg.send "I haven't seen #{nick} around lately"
