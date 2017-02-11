@@ -39,15 +39,11 @@ class Seen
   constructor: (@robot) ->
     @cache= {}
 
-    @robot.brain.on 'loaded', @load
-    if @robot.brain.data.users.length
-      @load()
+    @robot.brain.on 'loaded', => @cache = @robot.brain.data.seen || {}
 
-  load: =>
-    if @robot.brain.data.seen
-      @cache = @robot.brain.data.seen
-    else
-      @robot.brain.data.seen = @cache
+  save: =>
+    # TODO: should we try to only write changes to the db, instead of the entire map?
+    @robot.brain.data.seen = @cache
 
   add: (user, channel, msg) ->
     @robot.logger.debug "seen.add #{clean user} on #{channel}"
@@ -55,6 +51,7 @@ class Seen
       chan: channel
       date: new Date() - 0
       msg: msg
+    @save()
 
   last: (user) ->
     @cache[clean user] ? {}
