@@ -6,13 +6,13 @@
 #   hubot seen in last 24h - list users seen in last 24 hours
 #
 # Configuration:
-#   HUBOT_SEEN_NORELATIVE - If set (to anything), last seen times will be absolute dates instead of relative
+#   HUBOT_SEEN_TIMEAGO - If set to `false` (defaults to `true`), last seen times will be absolute dates instead of relative
 #
 # Author:
 #   wiredfool, patcon@gittip
 
 config =
-  absolute_times: process.env.HUBOT_SEEN_NORELATIVE
+  use_timeago: process.env.HUBOT_SEEN_TIMEAGO isnt 'false'
 
 clean = (thing) ->
   (thing || '').toLowerCase().trim()
@@ -82,7 +82,7 @@ module.exports = (robot) ->
       nick = msg.match[1]
       last = seen.last nick
       if last.date
-        date_string = unless config.absolute_times?
+        date_string = if config.use_timeago
           timeago = require 'timeago'
           timeago(new Date(last.date))
         else

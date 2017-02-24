@@ -18,7 +18,7 @@ Then add **hubot-seen** to your `external-scripts.json`:
 
 ## Configuration
 
-Set `HUBOT_SEEN_NORELATIVE` in the environment to output an absolute time (like "Sat Feb 11 2017 03:12:39 GMT-0500 (EST)") instead of a relative one (like "less than a minute ago").
+Set `HUBOT_SEEN_TIMEAGO` to `false` in the environment to output an absolute time (like "Sat Feb 11 2017 03:12:39 GMT-0500 (EST)") instead of a relative one (like "less than a minute ago"). Defaults to true (i.e. relative times).
 
 ## Sample Interaction
 
