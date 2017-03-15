@@ -28,9 +28,9 @@
     "grunt-mocha-test": "~0.7.0",
     "grunt-release": "^0.14.0",
     "matchdep": "~0.1.2",
-    "mocha": "*",
-    "sinon": "*",
-    "sinon-chai": "*"
+    "mocha": "^1.21.5",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0"
   },
   "main": "index.coffee",
   "scripts": {
