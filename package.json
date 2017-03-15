@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "coffee-script": "^1.12.4",
-    "timeago": "^1.5.4"
+    "timeago": "^0.1.0"
   },
   "devDependencies": {
     "chai": "^1.10.0",
