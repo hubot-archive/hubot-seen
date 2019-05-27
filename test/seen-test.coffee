@@ -1,19 +1,29 @@
+# TODO test more, like the non-timeago functionality
+
+Helper = require('hubot-test-helper')
 chai = require 'chai'
-sinon = require 'sinon'
-chai.use require 'sinon-chai'
 
 expect = chai.expect
 
+helper = new Helper('../src/seen.coffee')
+
 describe 'seen', ->
   beforeEach ->
-    @robot =
-      respond: sinon.spy()
-      hear: sinon.spy()
+    @room = helper.createRoom()
 
-    require('../src/seen')(@robot)
+  afterEach ->
+    @room.destroy()
 
-  it 'registers a respond listener', ->
-    expect(@robot.respond).to.have.been.calledWith(/hello/)
+  it 'responds to \'seen alice\'', ->
+    @room.user.say('alice', '@hubot seen alice').then =>
+      expect(@room.messages).to.eql [
+        ['alice', '@hubot seen alice']
+        ['hubot', 'alice was last seen less than a minute ago, saying \'@hubot seen alice\' in room1']
+      ]
 
-  it 'registers a hear listener', ->
-    expect(@robot.hear).to.have.been.calledWith(/orly/)
+  it 'responds to a question about someone who hasn\'t spoken', ->
+    @room.user.say('alice', '@hubot seen bob').then =>
+      expect(@room.messages).to.eql [
+        ['alice', '@hubot seen bob']
+        ['hubot', 'I haven\'t seen bob around lately']
+      ]
