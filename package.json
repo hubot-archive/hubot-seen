@@ -21,17 +21,17 @@
     "timeago": "^0.1.0"
   },
   "devDependencies": {
-    "chai": "^1.10.0",
+    "chai": "^4.2.0",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-mocha-test": "^0.13.3",
     "grunt-release": "^0.14.0",
     "hubot-test-helper": "^1.9.0",
-    "matchdep": "~0.1.2",
-    "mocha": "^1.21.5",
-    "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0"
+    "matchdep": "^2.0.0",
+    "mocha": "^6.1.4",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0"
   },
   "main": "index.coffee",
   "scripts": {
