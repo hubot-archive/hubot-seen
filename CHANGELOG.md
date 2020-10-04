@@ -2,7 +2,7 @@
 
 `hubot-seen` follows [Semantic Versioning][1] 2.0.
 
-## 2.0.0 - future
+## 2.0.0 - 2020-10-04
 
 ### Added
 
