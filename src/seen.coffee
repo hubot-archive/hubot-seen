@@ -80,8 +80,8 @@ module.exports = (robot) ->
       last = seen.last nick
       if last.date
         date_string = if config.use_timeago
-          timeago = require 'timeago'
-          timeago(new Date(last.date))
+          timeago = require 'timeago.js'
+          timeago.format(new Date(last.date))
         else
           "at #{new Date(last.date)}"
 

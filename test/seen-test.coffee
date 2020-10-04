@@ -18,7 +18,7 @@ describe 'seen', ->
     @room.user.say('alice', '@hubot seen alice').then =>
       expect(@room.messages).to.eql [
         ['alice', '@hubot seen alice']
-        ['hubot', 'alice was last seen less than a minute ago, saying \'@hubot seen alice\' in room1']
+        ['hubot', 'alice was last seen just now, saying \'@hubot seen alice\' in room1']
       ]
 
   it 'responds to a question about someone who hasn\'t spoken', ->
