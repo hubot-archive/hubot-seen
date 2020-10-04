@@ -34,6 +34,9 @@
     "sinon-chai": "^3.3.0"
   },
   "main": "index.coffee",
+  "engine": {
+    "node": ">=10.0"
+  },
   "scripts": {
     "test": "grunt test"
   }
